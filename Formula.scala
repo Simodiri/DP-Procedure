@@ -45,6 +45,12 @@ class Formula(clauses: Set[Clause], corr: List[(String,Int)]){
 		(purepos,pureneg)
 	}
 	
+	def chooseLiteral: Int = { //sceglie un letterale
+		val literals = this.clauses.map(c => c.getLiterals).flatten.toList
+		if(literals == Nil) 0
+		else literals(0)
+	}
+	
 	def getLiterals: Set[Int] = { //dà in output i letterali della formula
 		this.clauses.map(c => c.getLiterals).flatten
 	}
@@ -62,12 +68,6 @@ class Formula(clauses: Set[Clause], corr: List[(String,Int)]){
 	
 	def addClause(c: Clause):Formula = { //aggiunge una clausola
 		new Formula(this.clauses + c, this.corr)
-	}
-
-	def chooseLiteral: Int = { //sceglie un letterale
-		val literals = this.clauses.map(c => c.getLiterals).flatten.toList
-		if(literals == Nil) 0
-		else literals(0)
 	}
 	
 	def getResult(assign: HashMap[Int,Boolean]):List[(String,Boolean)] = { //determina il risultato delle assegnazioni
