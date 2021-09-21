@@ -63,9 +63,10 @@ sealed abstract class Clause{
 	
 	def print(corr: List[(String,Int)]): String = this match { //costruisce le clausole
 		case E() => "()"
-		case U(l) => if(l > 0) "("+corr.filter(_._2 == l).head._1+")" else "(¬"+corr.filter(_._2 == -l).head._1+")"
+		case U(l) => if(l > 0) "("+corr.filter(_._2 == l).head._1+")" 
+		             else "(¬"+corr.filter(_._2 == -l).head._1+")"
 		case C(v) => "(" + v.map(e => (if(e > 0) corr.filter(_._2 == e).head._1 
-					       else "¬"+corr.filter(_._2 == -e).head._1)+" ∨ ").reduce(_+_).dropRight(3) + ")"
+	                      else "¬"+corr.filter(_._2 == -e).head._1)+" ∨ ").reduce(_+_).dropRight(3) + ")"
 	}
 }
 case class E() extends Clause				//clausola vuota
