@@ -5,7 +5,7 @@ sealed abstract class Clause{
 		case _ => false
 	}
 	
-    def map(f: Int => Any): List[(Int,Any)] = this match{ //applica la mappatura di Scala alle clasuole
+        def map(f: Int => Any): List[(Int,Any)] = this match{ //applica la mappatura di Scala alle clasuole
 		case E() => Nil
 		case U(l) => List((l,f(l)))
 		case C(v) => v.toList.map(l => (l,f(l)))
