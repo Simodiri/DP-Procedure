@@ -29,7 +29,7 @@ sealed abstract class Clause{
 		case _ => this
 	}
 	
-	def containsVariable(x: Int):Boolean = this match { //definisce se contiene un letterale
+	def containsVariable(x: Int):Boolean = this match { //definisce se la clausola contiene una variabile
 		case E() => false
 		case U(l) => x == l.abs
 		case C(v) => {
@@ -73,12 +73,6 @@ case class U(l: Int) extends Clause			//clausola unit
 case class C(v: Set[Int]) extends Clause	//clausola composta da più literal	
 
 
-
-    /*def isSatisfiedBy(assign: HashMap[Int,Boolean]):Boolean =  this match{ //verifica 
-		case E() => false
-		case U(l) => if(assign(l.abs)) l > 0 else l < 0 
-		case C(v) => v.map(e => if(assign(e.abs)) e > 0 else e < 0).count(_ == true) >= 1
-	}*/
 	
 	
 
