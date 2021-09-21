@@ -29,6 +29,11 @@ sealed abstract class Clause{
 		case _ => this
 	}
 	
+        def isUnit: Boolean = this match { //controlla se sia una clausola unitaria
+		case U(l) => true
+		case _ => false
+	}
+	
 	def containsVariable(x: Int):Boolean = this match { //definisce se la clausola contiene una variabile
 		case E() => false
 		case U(l) => x == l.abs
@@ -37,12 +42,6 @@ sealed abstract class Clause{
 			variables contains x
 		}
 	}
-	
-		def isUnit: Boolean = this match { //controlla se sia una clausola unitaria
-		case U(l) => true
-		case _ => false
-	}
-	
 
 	def getLiterals:Set[Int] = this match{ //fornisce i letterali 
 		case E() => Set()
