@@ -17,7 +17,7 @@ class Formula(clauses: Set[Clause], corr: List[(String,Int)]){
 		this.clauses.map(c => c.getLiterals).flatten.map(l => l.abs).size
 	}
 	
-    override def toString: String = { //costruisce la formula
+        override def toString: String = { //costruisce la formula
 		this.clauses.map(c => c.print(this.corr)+" ∧ ").reduce(_+_).dropRight(3)
 	}
 	
@@ -31,6 +31,10 @@ class Formula(clauses: Set[Clause], corr: List[(String,Int)]){
 	
 	def toUnit: Formula = { //rende le clausole con un solo letterale unitarie
 		new Formula(this.clauses.map(_.toUnit), this.corr)
+	}
+	
+	def getFirstUnitClause: Clause = { //dà in output la clausola unitaria
+		this.clauses.filter(c => c.isUnit).head
 	}
 	
 	def getPureLiterals: (Set[Int], Set[Int]) = {
@@ -59,11 +63,7 @@ class Formula(clauses: Set[Clause], corr: List[(String,Int)]){
 	def addClause(c: Clause):Formula = { //aggiunge una clausola
 		new Formula(this.clauses + c, this.corr)
 	}
-	
-	def getFirstUnitClause: Clause = { //dà in output la clausola unitaria
-		this.clauses.filter(c => c.isUnit).head
-	}
-	
+
 	def chooseLiteral: Int = { //sceglie un letterale
 		val literals = this.clauses.map(c => c.getLiterals).flatten.toList
 		if(literals == Nil) 0
