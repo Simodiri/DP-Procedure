@@ -35,7 +35,7 @@ object Utils{
 			assignment(-j) = false
 			var clneg = f.getClauses.filter(c => c containsLiteral j)
 			f = f.removeClauses(clneg)
-			}
+	        }
 		(f.toUnit, assignment)		
 	}
 	
