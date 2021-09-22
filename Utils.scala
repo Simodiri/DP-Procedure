@@ -50,26 +50,48 @@ object Utils{
 		assignment
 	}
 	
-    def resolve(f:Formula, assign:HashMap[Int,Boolean]):(Formula, HashMap[Int,Boolean])={
-		var fo=f
-		var assignment=assign
-		var littomerge=Set[Int]()
-		if(fo.getLiterals.exists(x=>f.getLiterals.exists(_==(-x)))){
+     def resolve(f:Formula):(Formula)={
+        var fo=f
+        if(fo.getLiterals.exists(x=>f.getLiterals.exists(_==(-x)))){
 			 var x=fo.getLiterals.filter(x=>f.getLiterals.exists(_==(-x))).head
-		         var nocc=fo.getClauses.filter(a=>a.containsLiteral(-x)).toSet //clausole che contengono l'opposto
+		     var nocc=fo.getClauses.filter(a=>a.containsLiteral(-x)).toSet //clausole che contengono l'opposto
 			 var occ=fo.getClauses.filter(a=>a.containsLiteral(x)).toSet    //clausole che contengono il letterale
-		        if(!occ.isEmpty && !nocc.isEmpty){
-				        if(x > 0) assignment(x) = true
-		                        else assignment(-x) = false	 
-				        littomerge=littomerge ++ Utils.resolution(occ,nocc,x) //prende i letterali da mettere insieme
-				        fo=fo.addClause(makeClause(littomerge))				   
-				        fo=fo.removeClauses(occ)
-                                        fo=fo.removeClauses(nocc)	
-                   }		
-                     littomerge=Set[Int]()				
+		     if(occ==nocc){
+				 fo=fo.removeClauses(occ)
+				 occ=Set()
+				 nocc=Set()
+			 }
+		     if(!occ.isEmpty && !nocc.isEmpty){
+			   if(occ.size >=2 && nocc.size ==1 ){
+				 for(c<-occ){
+					 fo=fo.addClause(Utils.resolution(c,nocc.head,x))
+					 fo=fo.removeClause(c)     
+				 }
+				 fo=fo.removeClause(nocc.head)	
+			   }else if(nocc.size >=2 && occ.size ==1 ){
+				 for(c<-nocc){
+					 fo=fo.addClause(Utils.resolution(occ.head,c,x))
+					 fo=fo.removeClause(c)
+				 }
+				 fo=fo.removeClause(occ.head)
+			  }else if(nocc.size >=2 && occ.size >=2 ){
+				 for(c<-occ){
+					 for(r<-nocc){
+					   fo=fo.addClause(Utils.resolution(c,r,x))
+					   
+                     }
+                 }
+                    fo=fo.removeClauses(occ)
+                    fo=fo.removeClauses(nocc)	
+              }else{
+				   fo=fo.addClause(Utils.resolution(occ.head,nocc.head,x))
+				   fo=fo.removeClauses(occ)
+                   fo=fo.removeClauses(nocc)
+			   }
+			 }
 		}
-             (fo.toUnit,assignment)
-	}
+	    fo.toUnit
+      }	
 	
 	def resolution(r:Set[Clause],c:Set[Clause],lit:Int):Set[Int]={
 		var totlet=Set[Int]()
