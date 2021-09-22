@@ -39,7 +39,8 @@ object Parser{
 				new Formula(Set(E()), Nil)
 			}
 			else{
-				var clausesInt = clauses.map(c => c.map(l => if(l.head == '-') corr.filter(_._1 == l.tail).map(-_._2).head else corr.filter(_._1 == l).map(_._2).head))
+				var clausesInt = clauses.map(c => c.map(l => if(l.head == '-') corr.filter(_._1 == l.tail).map(-_._2).head 
+									else corr.filter(_._1 == l).map(_._2).head))
 				clausestoret = clausesInt.map(e => if(e.isEmpty) E() else C(e))
 				new Formula(clausestoret, corr).toUnit
 			}
