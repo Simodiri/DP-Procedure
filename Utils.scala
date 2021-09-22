@@ -29,7 +29,6 @@ object Utils{
 		for(i <- pos){
 			assignment(i) = true
 			var clpos = f.getClauses.filter(c => c containsLiteral i)
-			
 			f = f.removeClauses(clpos)
 		}
 		for(j <- neg){
