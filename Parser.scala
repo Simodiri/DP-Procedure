@@ -4,7 +4,6 @@ object Parser{
 		var clauses = Set[Set[String]]() 
 		var ok = true
 		var containsempty = false
-		var clauseprima=Set[String]()
 		println("Scrivi le clausole della formula utilizzando - per il not")
 		while(ok){
 			println("Inserisci una clausola della formula con i literal separati da uno spazio (' ') oppure 0 per concludere: ")
