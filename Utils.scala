@@ -53,14 +53,14 @@ object Utils{
      def resolve(f:Formula):(Formula)={
         var fo=f
         if(fo.getLiterals.exists(x=>f.getLiterals.exists(_==(-x)))){
-			 var x=fo.getLiterals.filter(x=>f.getLiterals.exists(_==(-x))).head
+	             var x=fo.getLiterals.filter(x=>f.getLiterals.exists(_==(-x))).head
 		     var nocc=fo.getClauses.filter(a=>a.containsLiteral(-x)).toSet //clausole che contengono l'opposto
-			 var occ=fo.getClauses.filter(a=>a.containsLiteral(x)).toSet    //clausole che contengono il letterale
+		     var occ=fo.getClauses.filter(a=>a.containsLiteral(x)).toSet    //clausole che contengono il letterale
 		     if(occ==nocc){
 				 fo=fo.removeClauses(occ)
 				 occ=Set()
 				 nocc=Set()
-			 }
+		     }
 		     if(!occ.isEmpty && !nocc.isEmpty){
 			   if(occ.size >=2 && nocc.size ==1 ){
 				 for(c<-occ){
@@ -79,16 +79,16 @@ object Utils{
 					 for(r<-nocc){
 					   fo=fo.addClause(Utils.resolution(c,r,x))
 					   
-                     }
-                 }
-                    fo=fo.removeClauses(occ)
-                    fo=fo.removeClauses(nocc)	
-              }else{
+                                         }
+                                  }
+                                  fo=fo.removeClauses(occ)
+                                  fo=fo.removeClauses(nocc)	
+                          }else{
 				   fo=fo.addClause(Utils.resolution(occ.head,nocc.head,x))
 				   fo=fo.removeClauses(occ)
-                   fo=fo.removeClauses(nocc)
-			   }
-			 }
+                                   fo=fo.removeClauses(nocc)
+			  }
+		       }
 		}
 	    fo.toUnit
       }	
