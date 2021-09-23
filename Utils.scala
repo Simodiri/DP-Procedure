@@ -50,66 +50,44 @@ object Utils{
 		assignment
 	}
 	
-     def resolve(f:Formula):(Formula)={
+   def resolve(f:Formula):(Formula)={
         var fo=f
         if(fo.getLiterals.exists(x=>f.getLiterals.exists(_==(-x)))){
-	             var x=fo.getLiterals.filter(x=>f.getLiterals.exists(_==(-x))).head
-		     var nocc=fo.getClauses.filter(a=>a.containsLiteral(-x)).toSet //clausole che contengono l'opposto
-		     var occ=fo.getClauses.filter(a=>a.containsLiteral(x)).toSet    //clausole che contengono il letterale
-		     if(occ==nocc){
-				 fo=fo.removeClauses(occ)
-				 occ=Set()
-				 nocc=Set()
-		     }
-		     if(!occ.isEmpty && !nocc.isEmpty){
-			   if(occ.size >=2 && nocc.size ==1 ){
-				 for(c<-occ){
-					 fo=fo.addClause(Utils.resolution(c,nocc.head,x))
-					 fo=fo.removeClause(c)     
-				 }
-				 fo=fo.removeClause(nocc.head)	
-			   }else if(nocc.size >=2 && occ.size ==1 ){
-				 for(c<-nocc){
-					 fo=fo.addClause(Utils.resolution(occ.head,c,x))
-					 fo=fo.removeClause(c)
-				 }
-				 fo=fo.removeClause(occ.head)
-			  }else if(nocc.size >=2 && occ.size >=2 ){
-				 for(c<-occ){
-					 for(r<-nocc){
-					   fo=fo.addClause(Utils.resolution(c,r,x))
-					   
-                                         }
-                                  }
-                                  fo=fo.removeClauses(occ)
-                                  fo=fo.removeClauses(nocc)	
-                          }else{
-				   fo=fo.addClause(Utils.resolution(occ.head,nocc.head,x))
-				   fo=fo.removeClauses(occ)
-                                   fo=fo.removeClauses(nocc)
-			  }
-		       }
-		}
+		 var x=fo.getLiterals.filter(x=>f.getLiterals.exists(_==(-x))).head
+		 var nocc=fo.getClauses.filter(a=>a.containsLiteral(-x)).toSet //clausole che contengono l'opposto
+	         var occ=fo.getClauses.filter(a=>a.containsLiteral(x)).toSet    //clausole che contengono il letterale
+		 if(occ==nocc){
+		       fo=fo.removeClauses(occ)
+		       occ=Set()
+		       nocc=Set()
+		 }
+		 if(!occ.isEmpty && !nocc.isEmpty){
+                      for(c<-occ){
+			 for(r<-nocc){
+			     fo=fo.addClause(Utils.resolution(c,r,x))
+			 }
+		      }
+                      fo=fo.removeClauses(occ)
+                      fo=fo.removeClauses(nocc)	
+                 }
+	 }
 	    fo.toUnit
-      }	
+    }	
 	
-	def resolution(r:Set[Clause],c:Set[Clause],lit:Int):Set[Int]={
-		var totlet=Set[Int]()
-		for(x<-r){
-			var a=x.removeLiteral(lit)
-			totlet=totlet ++a.getLiterals 
-		}
-		for(y<-c){
-			var b=y.removeLiteral(-lit)
-			totlet=totlet ++b.getLiterals 
-		}
-		totlet
-		
-    }
+    def resolution(r:Set[Clause],c:Set[Clause],lit:Int):Set[Int]={
+	var totlet=Set[Int]() //totale dei letterali della clausola aggiuntiva
+	for(x<-r){
+		var a=x.removeLiteral(lit)
+		totlet=totlet ++a.getLiterals 
+	}
+	for(y<-c){
+		var b=y.removeLiteral(-lit)
+		totlet=totlet ++b.getLiterals 
+	}
+	totlet
+   }
     
     def makeClause(ins:Set[Int]):Clause= { //vale solo per più di un letterale
 	   C(ins)
 	}
-   
-    
-}
+    }
