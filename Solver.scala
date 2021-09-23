@@ -47,7 +47,7 @@ object Solver{
 			val ple = Utils.pureLiteralElimination(f, assignment)	//pure literal elimination
 			f = ple._1
 			assignment = ple._2
-			val re=Utils.resolve(f,assignment)
+			val re=Utils.resolution(f,assignment)
 			f = re._1
 			assignment = re._2
 			DPaux(f,assignment)
@@ -60,53 +60,6 @@ object Solver{
 		if(res._1) (true, formula.getResult(res._2))
 		else (false, Nil)
 	}
-	
-	/*def greedyHorn(formula: Formula):(Boolean, List[(String,Boolean)]) = {
-		var f = formula
-		if(!f.isHorn){
-			println("La formula non è una formula di Horn.")
-			(false,Nil)
-		}
-		else{
-			var assignment = Utils.buildAssignment(f.numVariables)
-			var pos:Set[Int] = f.getClauses.map(c => c.getLiterals).filter(c => c.size == 1 && c.head > 0).flatten
-			var past:Set[Int] = Set()
-			while(!pos.isEmpty){
-				var lit = pos.head
-				pos = pos - lit
-				past = past + lit
-				assignment(lit) = true
-				f = f.removeLiteralFromClauses(-lit)
-				var clpos = f.getClauses.map(c => c.getLiterals).filter(c => c.size == 1 && c.head > 0).flatten
-				clpos = clpos -- past
-				pos = pos ++ clpos
-			}			
-			if(f.isSatisfiedBy(assignment))
-				(true, f.getResult(assignment))
-			else
-				(false, Nil)
-		}
-	}*/
-	
-	/*def HornSat(formula: Formula):(Boolean, List[(String,Boolean)]) = {
-		var f = formula.toUnit
-		var assignment = Utils.buildAssignment(f.numVariables)
-		if(!f.isHorn){
-			println("La formula non è una formula di Horn.")
-			(false,Nil)
-		}
-		else if(f.isEmpty) (true, f.getResult(assignment))
-		else if(f contains E()) (false, Nil)
-		else{
-			val up = Utils.unitPropagation(f, assignment)
-			f = up._1
-			assignment = up._2
-			if(f contains E())
-				(false, Nil)
-			else
-				(true, formula.getResult(assignment))
-		}
-	}*/
 }
 
 
