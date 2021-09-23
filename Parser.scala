@@ -22,7 +22,6 @@ object Parser{
 					for(i <- lit){
 						clause = clause + i
 					}
-					clauseprima=clause
 					clauses = clauses + clause
 				}
 			}
