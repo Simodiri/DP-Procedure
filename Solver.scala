@@ -34,31 +34,28 @@ object Solver{
 		else (false, Nil)
 	}
 	
-	private def DPaux(formula: Formula, assign: HashMap[Int,Boolean]):(Boolean,HashMap[Int,Boolean]) = {
+	private def DPaux(formula: Formula):(Boolean) = {
 		var f = formula.toUnit
-		var assignment = assign
-		if(f.isEmpty) (true, assignment)
-		else if(f contains E()) (false, assignment)
+		if(f.isEmpty) (true)
+		else if(f contains E()) (false)
 		else{
-			val up = Utils.unitPropagation(f, assignment)	//unit propagation
-			f = up._1
-			assignment = up._2
-			println
-			val ple = Utils.pureLiteralElimination(f, assignment)	//pure literal elimination
-			f = ple._1
-			assignment = ple._2
-			val re=Utils.resolution(f,assignment)
-			f = re._1
-			assignment = re._2
-			DPaux(f,assignment)
+                        val up = Utils.dp_unitPropagation(f)  //unit propagation
+			f = up
+			
+			val ple = Utils.dp_pureLiteralElimination(f)	//pure literal elimination
+			f = ple
+			
+			val re=Utils.resolution(f) //resolution
+			f = re
+			
+			DPaux(f) 
 		}
-	
 	}
-	def DP(formula: Formula):(Boolean, List[(String,Boolean)]) = {
-		val res = DPaux(formula, Utils.buildAssignment(formula.numVariables))
-		
-		if(res._1) (true, formula.getResult(res._2))
-		else (false, Nil)
+	def DP(formula: Formula):(Boolean) = {
+		println("Esecuzione della DP-Procedure")
+		val res = DPaux(formula)
+		if(res) (true)
+		else (false)
 	}
 }
 
