@@ -14,6 +14,7 @@ object Solver{
 			val ple = Utils.pureLiteralElimination(f, assignment)	//pure literal elimination
 			f = ple._1
 			assignment = ple._2
+			
 			val literal = f.chooseLiteral	//choose literal
 			if(f.isEmpty) (true, assignment)
 			else if(f contains E()) (false, assignment)
