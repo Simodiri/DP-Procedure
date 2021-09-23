@@ -50,7 +50,7 @@ object Utils{
 		assignment
 	}
 	
-   def resolve(f:Formula):(Formula)={
+   def resolution(f:Formula):(Formula)={
         var fo=f
         if(fo.getLiterals.exists(x=>f.getLiterals.exists(_==(-x)))){
 		 var x=fo.getLiterals.filter(x=>f.getLiterals.exists(_==(-x))).head
@@ -64,7 +64,7 @@ object Utils{
 		 if(!occ.isEmpty && !nocc.isEmpty){
                       for(c<-occ){
 			 for(r<-nocc){
-			     fo=fo.addClause(Utils.resolution(c,r,x))
+			     fo=fo.addClause(Utils.resolve(c,r,x))
 			 }
 		      }
                       fo=fo.removeClauses(occ)
@@ -74,7 +74,7 @@ object Utils{
 	    fo.toUnit
     }	
 	
-    def resolution(r:Set[Clause],c:Set[Clause],lit:Int):Set[Int]={
+    def resolve(r:Set[Clause],c:Set[Clause],lit:Int):Set[Int]={
 	var totlet=Set[Int]() //totale dei letterali della clausola aggiuntiva
 	for(x<-r){
 		var a=x.removeLiteral(lit)
