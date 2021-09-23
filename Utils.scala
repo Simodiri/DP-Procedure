@@ -84,7 +84,7 @@ object Utils{
 		totlet=totlet ++b.getLiterals 
 	}
 	totlet
-   }
+    }
     
     def makeClause(ins:Set[Int]):Clause= { //vale solo per più di un letterale
 	   C(ins)
