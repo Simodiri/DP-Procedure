@@ -21,7 +21,6 @@ object Utils{
 		var (p,n) = formula.getPureLiterals
 		var pos = p.toList
 		var neg = n.toList
-		println("positivi"+pos+"negativi"+neg)
 		var f = formula
 		var assignment = assign
 		var i = 0;
