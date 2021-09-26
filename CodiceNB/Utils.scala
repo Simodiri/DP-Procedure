@@ -87,7 +87,7 @@ object Utils{
 		var lit=nbliteralbranch.head
 		var nbvar=fo.getVariable(lit)
 		var nblitremained=assignment.filter(y=>fo.getVariable(y._1)==nbvar)
-		  for(elem<-nblitremained){ //assegno agli altri valori il valore false
+		  for(elem<-nblitremained){ //si assegnano gli altri valori a false
 				if(lit!=elem._1){
 					assign(elem._1)=false
 				}
