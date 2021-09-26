@@ -7,26 +7,24 @@ object Solver{
 		if(f.isEmpty) (true, assignment)
 		else if(f contains E()) (false, assignment)
 		else{
-			val up = Utils.unitPropagation(f, assignment)	//unit propagation
-			f = up._1
-			assignment = up._2
-			val ple = Utils.pureLiteralElimination(f, assignment)	//pure literal elimination
-			f = ple._1
-			assignment = ple._2
+		    val up = Utils.unitPropagation(f, assignment)	//unit propagation
+		    f = up._1
+		    assignment = up._2
+		    val ple = Utils.pureLiteralElimination(f, assignment)	//pure literal elimination
+		    f = ple._1
+		     assignment = ple._2
 		     if(f.isEmpty) (true, assignment)
 		     else if(f contains E()) (false, assignment)
 		     else{
-				   var x=f.getVariables.head
-		           val fp=Utils.branching(f,x,assignment)
-		           val p = NB_DPaux(fp, assignment)
+			  var x=f.getVariables.head
+		          val fp=Utils.branching(f,x,assignment)
+		          val p = NB_DPaux(fp, assignment)
 		          if(p._1) p
 		          else{
-					  (false,assignment)
-				  }
-		      
-              } 
-			 
-	    }
+			    (false,assignment)
+		         }
+	             } 
+	       }
 	}
 	def NB_DP(formula: Formula):(Boolean, List[(String,Boolean)]) = {
 		println("Esecuzione della NB_DP")
