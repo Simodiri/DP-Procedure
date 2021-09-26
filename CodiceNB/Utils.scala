@@ -87,15 +87,15 @@ object Utils{
 		var lit=nbliteralbranch.head
 		var nbvar=fo.getVariable(lit)
 		var nblitremained=assignment.filter(y=>fo.getVariable(y._1)==nbvar)
-		  for(elem<-nblitremained){ //si assegnano gli altri valori a false
-				if(lit!=elem._1){
-					assign(elem._1)=false
-				}
-			 }
-			println("Variabile scelta "+f.getCorr.filter(_._2==lit).map(_._1))
-		    var fp = new Formula(Set(U(Set(lit))) ++ fo.getClauses, fo.getCorr)
-			fp
-   }
+		for(elem<-nblitremained){ //si assegnano gli altri valori a false
+		      if(lit!=elem._1){
+			 assign(elem._1)=false
+		      }
+	        }
+		println("Variabile scelta "+f.getCorr.filter(_._2==lit).map(_._1))
+	        var fp = new Formula(Set(U(Set(lit))) ++ fo.getClauses, fo.getCorr)
+	        fp
+    }
     def makeClause(ins:Set[Int]):Clause= { //vale solo per più di un letterale
 	   C(ins)
 	}
