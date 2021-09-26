@@ -83,7 +83,7 @@ object Utils{
     def branching(f:Formula,x:String, assign: HashMap[Int,Boolean]):Formula={
 		var fo=f
 		var assignment=assign
-	    var nbliteralbranch=fo.getLiterals.filter(y=>fo.getVariable(y)==x)
+	        var nbliteralbranch=fo.getLiterals.filter(y=>fo.getVariable(y)==x)
 		var lit=nbliteralbranch.head
 		var nbvar=fo.getVariable(lit)
 		var nblitremained=assignment.filter(y=>fo.getVariable(y._1)==nbvar)
