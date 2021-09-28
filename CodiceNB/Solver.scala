@@ -33,7 +33,6 @@ object Solver{
 		else (false, Nil)
 	}
 	
-	
 }
 
 
