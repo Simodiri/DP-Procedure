@@ -99,7 +99,4 @@ object Utils{
     def makeClause(ins:Set[Int]):Clause= { //vale solo per più di un letterale
 	   C(ins)
 	}
-    
-   
-    
 }
