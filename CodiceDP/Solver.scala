@@ -42,7 +42,7 @@ object Solver{
 		if(f.isEmpty) (true)
 		else if(f contains E()) (false)
 		else{
-            val up = Utils.dp_unitPropagation(f)  //unit propagation
+                         val up = Utils.dp_unitPropagation(f)  //unit propagation
 			f = up
 			
 			val ple = Utils.dp_pureLiteralElimination(f)	//pure literal elimination
