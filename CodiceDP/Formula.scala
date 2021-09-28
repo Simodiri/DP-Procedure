@@ -17,7 +17,7 @@ class Formula(clauses: Set[Clause], corr: List[(String,Int)]){
 		this.clauses.map(c => c.getLiterals).flatten.map(l => l.abs).size
 	}
 	
-    override def toString: String = { //costruisce la formula
+        override def toString: String = { //costruisce la formula
 		this.clauses.map(c => c.print(this.corr)+" ∧ ").reduce(_+_).dropRight(3)
 	}
 	
@@ -75,9 +75,5 @@ class Formula(clauses: Set[Clause], corr: List[(String,Int)]){
 	}
 }
 
-
-	/*def isSatisfiedBy(assign: HashMap[Int,Boolean]):Boolean = {
-		this.clauses.forall(c => c.isSatisfiedBy(assign))
-	}*/
 
 
