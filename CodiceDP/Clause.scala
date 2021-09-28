@@ -5,7 +5,7 @@ sealed abstract class Clause{
 		case _ => false
 	}
 	
-    def map(f: Int => Any): List[(Int,Any)] = this match{ //applica la mappatura di Scala alle clasuole
+        def map(f: Int => Any): List[(Int,Any)] = this match{ //applica la mappatura di Scala alle clasuole
 		case E() => Nil
 		case U(l) => List((l,f(l)))
 		case C(v) => v.toList.map(l => (l,f(l)))
@@ -75,12 +75,7 @@ case class C(v: Set[Int]) extends Clause	//clausola composta da più literal
 
 
 
-    /*def isSatisfiedBy(assign: HashMap[Int,Boolean]):Boolean =  this match{ //verifica 
-		case E() => false
-		case U(l) => if(assign(l.abs)) l > 0 else l < 0 
-		case C(v) => v.map(e => if(assign(e.abs)) e > 0 else e < 0).count(_ == true) >= 1
-	}*/
-	
+   
 	
 
 
