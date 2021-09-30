@@ -1,7 +1,7 @@
 import scala.collection.mutable.HashMap
 
 object Utils{
-	def unitPropagation(formula: Formula, assign:HashMap[Int,Boolean]):(Formula, HashMap[Int,Boolean]) = 
+	def unitPropagation(formula: Formula, assign:HashMap[Int,Boolean]):(Formula, HashMap[Int,Boolean]) = {
 		var f = formula
 		var assignment = assign
 		while(f.containsUnitClauses){
